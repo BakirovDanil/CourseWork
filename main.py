@@ -1,15 +1,20 @@
 from tkinter import *
 
+import time
 from future.moves.tkinter import ttk
 
 Frame = Tk()
+times = ttk.Label()
+times.place(x=850, y=650)
 
 
 # Область для отображения схемы системы полива
 def CanvasForm(window):
     canvas = Canvas(bg="#99FF99", width=1000, height=450)
     canvas.place(x=12, y=12)
-    #canvas.create_rectangle(20, 20, 60, 200)
+    canvas.create_rectangle(12, 12, 162, 250)
+    canvas.create_rectangle(272, 12, 422, 250)
+    canvas.create_rectangle(532, 12, 682, 250)
 
 
 def ParametrsLabel(label):
@@ -46,6 +51,11 @@ def Labels():
     ParametrsLabel(impurityLevel)
 
 
+def tick():
+    times['text'] = time.strftime("%H:%M:%S")
+    times.after(1000, tick)
+
+
 def MenuForm(window):
     main_menu = Menu()
     main_menu.add_cascade(label="Система")  # меню "Система"
@@ -66,4 +76,5 @@ def MainForm(window):
     window.mainloop()
 
 
+tick()
 MainForm(Frame)
