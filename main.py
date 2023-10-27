@@ -9,6 +9,7 @@ Frame = Tk()
 def CanvasForm(window):
     canvas = Canvas(bg="#99FF99", width=1000, height=450)
     canvas.place(x=12, y=12)
+    #canvas.create_rectangle(20, 20, 60, 200)
 
 
 def ParametrsLabel(label):
