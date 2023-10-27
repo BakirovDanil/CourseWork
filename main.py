@@ -5,6 +5,12 @@ from future.moves.tkinter import ttk
 Frame = Tk()
 
 
+# Область для отображения схемы системы полива
+def CanvasForm(window):
+    canvas = Canvas(bg="#99FF99", width=1000, height=450)
+    canvas.place(x=12, y=12)
+
+
 def ParametrsLabel(label):
     label['foreground'] = 'blue'
     label['font'] = ('TimesNewRoman', 12)
@@ -55,6 +61,7 @@ def MainForm(window):
     window.resizable(False, False)
     MenuForm(window)
     Labels()
+    CanvasForm(window)
     window.mainloop()
 
 
