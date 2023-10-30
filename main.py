@@ -8,11 +8,11 @@ Frame = Tk()
 times = ttk.Label()
 times.place(x=850, y=650)
 greenhouse = IntVar()
-WaterTime = DoubleVar()
-wateringInterval = DoubleVar()
+WaterTime = IntVar()
+wateringInterval = IntVar()
 temperature = DoubleVar()
-humidity = DoubleVar()
-impurityLevel = DoubleVar()
+humidity = IntVar()
+impurityLevel = IntVar()
 
 
 # Область для отображения схемы системы полива
