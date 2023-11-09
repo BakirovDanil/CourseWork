@@ -10,7 +10,6 @@ class ToolTip:
         self.widget.bind("<Leave>", self.hideToolTip)
 
     def showToolTip(self, event):
-        time.sleep(2)
         self.tooltipWindow = tk.Toplevel(self.widget)
         self.tooltipWindow.wm_overrideredirect(True)
         self.tooltipWindow.wm_geometry(f"+{event.x_root}+{event.y_root + 20}")

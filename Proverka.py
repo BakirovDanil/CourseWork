@@ -1,9 +1,10 @@
-def Proverka(firstCu, secondCu, maxCu, minCu):
+def Proverka(WaterTime, wateringInterval, temperature, humidity, impurityLevel):
     try:
-        firstCu = float(firstCu.get())
-        secondCu = float(secondCu.get())
-        maxCu = float(maxCu.get())
-        minCu = float(minCu.get())
+        WaterTime = int(WaterTime.get())
+        wateringInterval = int(wateringInterval.get())
+        temperature = float(temperature.get())
+        humidity = int(humidity.get())
+        impurityLevel = int(impurityLevel.get())
         return True
     except Exception as e:
         return False
