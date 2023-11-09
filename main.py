@@ -1,14 +1,19 @@
+from datetime import datetime
 from tkinter import *
 
-import time
 from future.moves.tkinter import ttk
 from gevent import threading
 
 import Objects
 
+# создание объекта окна
 Frame = Tk()
+# создание Label для вывода времени
 times = ttk.Label()
-times.place(x=850, y=650)
+times.place(x=930, y=670)
+times['foreground'] = 'green'
+times['font'] = ('time1sNewRoman', 14)
+times['background'] = 'black'
 greenhouse = IntVar()
 WaterTime = IntVar()
 wateringInterval = IntVar()
@@ -21,14 +26,14 @@ impurityLevel = IntVar()
 def CanvasForm(window):
     canvas = Canvas(bg="#99FF99", width=1000, height=450)
     canvas.place(x=12, y=12)
-    rec1=canvas.create_rectangle(12, 12, 162, 250)
-    rec2=canvas.create_rectangle(272, 12, 422, 250)
-    rec3=canvas.create_rectangle(532, 12, 682, 250)
+    rec1 = canvas.create_rectangle(12, 12, 162, 250)
+    rec2 = canvas.create_rectangle(272, 12, 422, 250)
+    rec3 = canvas.create_rectangle(532, 12, 682, 250)
 
 
-def tick(data):
-    times['text'] = data
-    times.after(1000, tick)
+def update_time1():
+    times.config(text=f"{datetime.now():%H:%M:%S}")
+    Frame.after(100, update_time1)
 
 
 def MainForm(window):
@@ -45,4 +50,5 @@ def MainForm(window):
     window.mainloop()
 
 
+update_time1()
 MainForm(Frame)
