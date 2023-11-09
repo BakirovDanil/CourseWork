@@ -1,5 +1,7 @@
-from tkinter import ttk
+from tkinter import ttk, Menu
 from abc import ABC
+
+import hint
 
 
 def on_key_press(event):
@@ -64,8 +66,25 @@ class Entry(Figure):
         for i in entrys:
             i.bind("<Key>", on_key_press)
         greenhouse.place(x=255, y=495)
+        hint.ToolTip(greenhouse,"Поле для ввода количества теплиц")
         WaterTime.place(x=255, y=550)
+        hint.ToolTip(WaterTime, "Поле для ввода времени полива")
         wateringInterval.place(x=255, y=610)
+        hint.ToolTip(wateringInterval, "Поле для ввода интервала времени между поливом")
         temperature.place(x=670, y=490)
+        hint.ToolTip(temperature, "Поле для установки требуемой температуры")
         humidity.place(x=670, y=550)
+        hint.ToolTip(humidity, "Поле для установки требуемого уровня влажности")
         impurityLevel.place(x=670, y=610)
+        hint.ToolTip(impurityLevel, "Поле для установки требуемого количества удобрений")
+
+
+class MenuFrom(Figure):
+    def Sozdanie(self, window):
+        main_menu = Menu()
+        main_menu.add_cascade(label="Система")  # меню "Система"
+        main_menu.add_cascade(label="Таблицы")  # меню "Таблицы"
+        main_menu.add_cascade(label="Графики")  # меню "Графики"
+        main_menu.add_cascade(label="Инструкция")  # меню "Инструкция"
+        main_menu.add_cascade(label="Выход", command=window.destroy)  # меню aka кнопка "Выход" - выход из системы
+        window.config(menu=main_menu)
