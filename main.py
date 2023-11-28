@@ -3,7 +3,7 @@ from datetime import datetime
 from tkinter import *
 import tkinter as tk
 
-from future.moves.tkinter import ttk, messagebox
+from future.moves.tkinter import ttk
 
 import Objects
 import Proverka
@@ -61,6 +61,7 @@ def update_time1():
 def zapusk():
     thread_list = []
     if Proverka.Proverka(temperature, humidity):
+        button1["state"] = "normal"
         if greenhouse1.get() == 1:
             thr1 = Threads.Thr1(thr11, temperature, humidity, tempa1, humi1)
             thr1.start()
@@ -74,7 +75,7 @@ def zapusk():
 
 def stop_other_threads():
     threads = zapusk()
-    control_thread = Threads.ControlThread(threads)
+    control_thread = Threads.ControlThread(threads, button,button1)
     control_thread.start()
 
 
@@ -96,5 +97,6 @@ button = ttk.Button(text="Запуск системы", command=zapusk)
 button.place(x=650, y=490)
 button1 = ttk.Button(text="Создать аварию", command=stop_other_threads)
 button1.place(x=750, y=490)
+button1["state"]="disabled"
 update_time1()
 MainForm(Frame)

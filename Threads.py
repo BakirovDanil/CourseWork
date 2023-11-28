@@ -1,4 +1,3 @@
-from tkinter.messagebox import showerror, showinfo
 import random
 import threading as th
 import time
@@ -18,8 +17,8 @@ class Thr1(th.Thread):
         self.stopped = stop_event
 
     def run(self):
-        TEMP = 20
-        HUMI = 100
+        TEMP = random.randint(20, 27)
+        HUMI = random.randint(20, 90)
         temperature1 = self.temperature.get()
         humidity1 = self.humidity.get()
         while not self.stopped.is_set():
@@ -84,8 +83,8 @@ class Thr2(th.Thread):  # Создаём экземпляр потока Thread
         self.daemon = True  # Указываем, что этот поток - демон
 
     def run(self):
-        TEMP = 20
-        HUMI = 100
+        TEMP = random.randint(20, 27)
+        HUMI = random.randint(20, 90)
         temperature1 = self.temperature.get()
         humidity1 = self.humidity.get()
         while not self.stopped.is_set():
@@ -131,48 +130,90 @@ class Thr2(th.Thread):  # Создаём экземпляр потока Thread
 
 
 class ControlThread(th.Thread):
-    def __init__(self, threads_to_control):
+    def __init__(self, threads_to_control, b1, b2):
         th.Thread.__init__(self)
         self.threads_to_control = threads_to_control
+        self.b1 = b1
+        self.b2 = b2
 
     def run(self):
         for thread in self.threads_to_control:
             thread.stopped.set()
         rand = random.randint(1, 6)
         if rand == 1:
-            result = messagebox.showinfo("Поломка датчика влажности в первой теплице.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка датчика влажности в первой теплице.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
         elif rand == 2:
-            result = messagebox.showinfo("Поломка датчика влажности во второй теплице.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка датчика влажности во второй теплице.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
+                self.b1.state = "unable"
+                self.b2.state = "unable"
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
         elif rand == 3:
-            result = messagebox.showinfo("Поломка датчика температуры в первой теплице.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка датчика температуры в первой теплице.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
         elif rand == 4:
-            result = messagebox.showinfo("Поломка датчика температуры во второй теплице.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка датчика температуры во второй теплице.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
         elif rand == 5:
-            result = messagebox.showinfo("Поломка электромагнитного клапана зоны в первой теплице'.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка электромагнитного клапана зоны в первой теплице'.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
         elif rand == 6:
-            result = messagebox.showinfo("Поломка электромагнитного клапана зоны во второй теплице.",
-                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            Passive(self.b1, self.b2)
+            result = messagebox.showerror("Поломка электромагнитного клапана зоны во второй теплице.",
+                                          "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
             if result == "ok":
+                time.sleep(2)
+                messagebox.showinfo("Уведомление.",
+                                    "Система восстановлена")
+                Active(self.b1, self.b2)
                 for thread in self.threads_to_control:
                     thread.stopped.clear()
 
+
+def Passive(b1, b2):
+    b1["state"] = "disabled"
+    b2["state"] = "disabled"
+
+
+def Active(b1, b2):
+    b1["state"] = "normal"

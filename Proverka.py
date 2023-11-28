@@ -5,7 +5,7 @@ def Proverka(temperature, humidity):
     try:
         temperature1 = float(temperature.get())
         humidity1 = int(humidity.get())
-        if 21 < temperature1 < 27 and 50 < humidity1 < 85:
+        if 20 < temperature1 < 28 and 49 < humidity1 < 86:
             return True
         else:
             showerror(title="Ошибка",
