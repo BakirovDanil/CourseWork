@@ -25,12 +25,13 @@ class Figure(ABC):
 class Label(Figure):
     def Sozdanie(self, window):
         greenhouse = ttk.Label(text="Обслуживаемые теплицы")
-        temperature = ttk.Label(text="Температура")
-        humidity = ttk.Label(text="Уровень влажности")
+        temperature = ttk.Label(text="Температура \n(в градусах Цельсия)")
+        humidity = ttk.Label(text="Уровень влажности \n(в процентах)")
         scheme = ttk.Label(text="Схема системы полива")
+        instruction = ttk.Label(text="Описание работы")
         GH1 = ttk.Label(text="Теплица 1")
         GH2 = ttk.Label(text="Теплица 2")
-        labels = [greenhouse, temperature, humidity, scheme, GH1, GH2]
+        labels = [greenhouse, temperature, humidity, scheme, GH1, GH2, instruction]
         ParametrsLabel(labels)
         # Работа с созданными полями
         greenhouse.place(x=40, y=450)
@@ -43,6 +44,8 @@ class Label(Figure):
         # работа с созаднными полями
         GH1.place(x=350, y=450)
         GH2.place(x=490, y=450)
+        # работа с созданными полями
+        instruction.place(x=680, y=10)
 
 
 class Entry(Figure):

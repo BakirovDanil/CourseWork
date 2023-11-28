@@ -3,7 +3,7 @@ from datetime import datetime
 from tkinter import *
 import tkinter as tk
 
-from future.moves.tkinter import ttk
+from future.moves.tkinter import ttk, messagebox
 
 import Objects
 import Proverka
@@ -16,6 +16,8 @@ teplica = PhotoImage(file="теплица.png")
 nasos = PhotoImage(file="nasos.png")
 python_image = teplica.subsample(6, 6)
 nasos_image = nasos.subsample(6, 6)
+nadpis = PhotoImage(file="Надпись.png")
+nadpis_image = nadpis.subsample(1,1)
 # создание Label для вывода времени
 times = ttk.Label()
 times.place(x=930, y=670)
@@ -31,10 +33,14 @@ humidity = IntVar()
 # создание объекта для отрисовки формы
 canvas = Canvas(bg="#99FF99", width=450, height=350)
 canvas.place(x=5, y=35)
+# создание еще одного объекта для размещения текста
+canvas1 = Canvas(bg="#FFFFFF", width=620, height=360)
+canvas1.place(x=450, y=35)
 # размещение фотографий на canvas
 teplica1 = canvas.create_image(10, 30, anchor=NW, image=python_image)
 teplica2 = canvas.create_image(160, 30, anchor=NW, image=python_image)
 nasos = canvas.create_image(340, 230, anchor=NW, image=nasos_image)
+nadpis = canvas1.create_image(10, 30, anchor=NW, image=nadpis_image)
 # размещение труб на canvas
 truba1 = canvas.create_rectangle(42, 160, 50, 275)
 truba2 = canvas.create_rectangle(192, 160, 200, 275)
@@ -42,6 +48,7 @@ Daemon_Trube = canvas.create_rectangle(42, 275, 350, 283)
 # создание checkbutton
 checkbutton1 = tk.Checkbutton(text="1", variable=greenhouse1)
 checkbutton2 = tk.Checkbutton(text="2", variable=greenhouse2)
+check = [checkbutton1, checkbutton2]
 # переменные для вывода действительных значений для первой теплицы
 tempa1 = tk.StringVar()
 humi1 = tk.StringVar()
@@ -66,10 +73,14 @@ def zapusk():
             thr1 = Threads.Thr1(thr11, temperature, humidity, tempa1, humi1)
             thr1.start()
             thread_list.append(thr1)
+            button["state"]="disabled"
         if greenhouse2.get() == 1:
             thr2 = Threads.Thr2(thr22, temperature, humidity, tempa2, humi2)
             thr2.start()
             thread_list.append(thr2)
+            button["state"] = "disabled"
+        elif greenhouse1.get() == 0 and greenhouse2.get() == 0:
+            messagebox.showerror("Ошибка", "Выберите хоть одну теплицу")
     return thread_list
 
 
@@ -80,8 +91,8 @@ def stop_other_threads():
 
 
 def MainForm(window):
-    window.title("Система управления поливом")
-    window.geometry("1024x700+450+100")
+    window.title("Система управления поливом. Студент группы ЭАС-412С, Бакиров Данил")
+    window.geometry("1100x700+450+100")
     window.resizable(False, False)
     Labels1 = Objects.Label()
     Labels1.Sozdanie(window)
