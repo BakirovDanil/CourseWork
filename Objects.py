@@ -25,61 +25,58 @@ class Figure(ABC):
 class Label(Figure):
     def Sozdanie(self, window):
         greenhouse = ttk.Label(text="Обслуживаемые теплицы")
-        WaterTime = ttk.Label(text="Время полива")
-        wateringInterval = ttk.Label(text="Время между поливами")
         temperature = ttk.Label(text="Температура")
         humidity = ttk.Label(text="Уровень влажности")
-        impurityLevel = ttk.Label(text="Количество удобрений")
         scheme = ttk.Label(text="Схема системы полива")
-        labels = [greenhouse, WaterTime, wateringInterval, temperature, humidity, impurityLevel, scheme]
+        GH1 = ttk.Label(text="Теплица 1")
+        GH2 = ttk.Label(text="Теплица 2")
+        labels = [greenhouse, temperature, humidity, scheme, GH1, GH2]
         ParametrsLabel(labels)
         # Работа с созданными полями
-        greenhouse.place(x=40, y=490)
+        greenhouse.place(x=40, y=450)
         # Работа с созданными полями
-        WaterTime.place(x=40, y=550)
+        temperature.place(x=40, y=490)
         # Работа с созданными полями
-        wateringInterval.place(x=40, y=610)
-        # Работа с созданными полями
-        temperature.place(x=500, y=490)
-        # Работа с созданными полями
-        humidity.place(x=500, y=550)
-        # Работа с созданными полями
-        impurityLevel.place(x=500, y=610)
+        humidity.place(x=40, y=550)
         # работа с созданными полями
-        scheme.place(x=250, y=10)
-
+        scheme.place(x=150, y=10)
+        # работа с созаднными полями
+        GH1.place(x=350, y=450)
+        GH2.place(x=490, y=450)
 
 class Entry(Figure):
-    def __init__(self, WaterTime, wateringInterval, temperature, humidity, impurityLevel):
-        self.WaterTime = WaterTime
-        self.wateringInterval = wateringInterval
+    def __init__(self, temperature, humidity, tempa1, humi1, tempa2, humi2):
         self.temperature = temperature
         self.humidity = humidity
-        self.impurityLevel = impurityLevel
+        self.tempa1 = tempa1
+        self.humi1 = humi1
+        self.tempa2 = tempa2
+        self.humi2 = humi2
 
     def Sozdanie(self, window):
-        WaterTime = ttk.Entry(width=20, textvariable=self.WaterTime)
-        wateringInterval = ttk.Entry(width=20, textvariable=self.wateringInterval)
         temperature = ttk.Entry(width=20, textvariable=self.temperature)
         humidity = ttk.Entry(width=20, textvariable=self.humidity)
-        impurityLevel = ttk.Entry(width=20, textvariable=self.impurityLevel)
-        entrys = [WaterTime, wateringInterval, temperature, humidity, impurityLevel]
+        tempa1 = ttk.Entry(width=20, textvariable=self.tempa1, state="readonly")
+        humi1 = ttk.Entry(width=20, textvariable=self.humi1, state="readonly")
+        tempa2 = ttk.Entry(width=20, textvariable=self.tempa2, state="readonly")
+        humi2 = ttk.Entry(width=20, textvariable=self.humi2, state="readonly")
+        entrys = [temperature, humidity]
         for i in entrys:
             i.bind("<Key>", on_key_press)
-        WaterTime.place(x=255, y=550)
-        hint.ToolTip(WaterTime, "Поле для ввода времени полива")
-        wateringInterval.place(x=255, y=610)
-        hint.ToolTip(wateringInterval, "Поле для ввода интервала времени между поливом")
-        temperature.place(x=670, y=490)
+        temperature.place(x=210, y=490)
         hint.ToolTip(temperature, "Поле для установки требуемой температуры")
-        humidity.place(x=670, y=550)
+        humidity.place(x=210, y=550)
         hint.ToolTip(humidity, "Поле для установки требуемого уровня влажности")
-        impurityLevel.place(x=670, y=610)
-        hint.ToolTip(impurityLevel, "Поле для установки требуемого количества удобрений")
+        tempa1.place(x=350, y=490)
+        hint.ToolTip(tempa1, "Действительное значение температуры в теплице 1")
+        humi1.place(x=350, y=550)
+        hint.ToolTip(humi1, "Действительное значение влажности в теплице 1")
+        tempa2.place(x=490, y=490)
+        hint.ToolTip(tempa2, "Действительное значение температуры в теплице 2")
+        humi2.place(x=490, y=550)
+        hint.ToolTip(humi2, "Действительное значение влажности в теплице 2")
 
 
-def CheckButton(checkbutton1, checkbutton2, checkbutton3, checkbutton4):
-    checkbutton1.place(x=255, y=490)
-    checkbutton2.place(x=285, y=490)
-    checkbutton3.place(x=315, y=490)
-    checkbutton4.place(x=345, y=490)
+def CheckButton(checkbutton1, checkbutton2):
+    checkbutton1.place(x=255, y=450)
+    checkbutton2.place(x=285, y=450)
