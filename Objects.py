@@ -44,6 +44,7 @@ class Label(Figure):
         GH1.place(x=350, y=450)
         GH2.place(x=490, y=450)
 
+
 class Entry(Figure):
     def __init__(self, temperature, humidity, tempa1, humi1, tempa2, humi2):
         self.temperature = temperature

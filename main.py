@@ -52,26 +52,30 @@ humi2 = tk.StringVar()
 thr11 = threading.Event()
 thr22 = threading.Event()
 
+
 def update_time1():
     times.config(text=f"{datetime.now():%H:%M:%S}")
     Frame.after(100, update_time1)
 
 
-thr1 = Threads.Thr1(temperature, humidity, tempa1, humi1, thr11)
-thr2 = Threads.Thr2(temperature, humidity, tempa2, humi2, thr22)
+def zapusk():
+    thread_list = []
+    if Proverka.Proverka(temperature, humidity):
+        if greenhouse1.get() == 1:
+            thr1 = Threads.Thr1(thr11, temperature, humidity, tempa1, humi1)
+            thr1.start()
+            thread_list.append(thr1)
+        if greenhouse2.get() == 1:
+            thr2 = Threads.Thr2(thr22, temperature, humidity, tempa2, humi2)
+            thr2.start()
+            thread_list.append(thr2)
+    return thread_list
 
 
 def stop_other_threads():
-    control_thread = Threads.ControlThread([thr1, thr2])
+    threads = zapusk()
+    control_thread = Threads.ControlThread(threads)
     control_thread.start()
-
-
-def zapusk():
-    if Proverka.Proverka(temperature, humidity):
-        if greenhouse1.get() == 1:
-            thr1.start()
-        if greenhouse2.get() == 1:
-            thr2.start()
 
 
 def MainForm(window):

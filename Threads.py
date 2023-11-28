@@ -7,15 +7,15 @@ from future.moves.tkinter import messagebox
 
 
 # Функции для каждого возможного сценария
-class Thr1(th.Thread):  # Создаём экземпляр потока Thread
-    def __init__(self, temperature, humidity, entry1, entry2, stop_event):
+class Thr1(th.Thread):
+    def __init__(self, stop_event, temperature, humidity, entry1, entry2):
         th.Thread.__init__(self)
+        self.stopped = stop_event
         self.temperature = temperature
         self.humidity = humidity
         self.entry1 = entry1
         self.entry2 = entry2
         self.stopped = stop_event
-        self.daemon = False  # Указываем, что этот поток - демон
 
     def run(self):
         TEMP = 20
@@ -74,7 +74,7 @@ class Thr1(th.Thread):  # Создаём экземпляр потока Thread
 
 
 class Thr2(th.Thread):  # Создаём экземпляр потока Thread
-    def __init__(self, temperature, humidity, entry1, entry2, stop_event):
+    def __init__(self, stop_event, temperature, humidity, entry1, entry2):
         th.Thread.__init__(self)
         self.temperature = temperature
         self.humidity = humidity
@@ -131,16 +131,48 @@ class Thr2(th.Thread):  # Создаём экземпляр потока Thread
 
 
 class ControlThread(th.Thread):
-    def __init__(self, threads_to_stop):
-        super().__init__()
-        self.threads_to_stop = threads_to_stop
+    def __init__(self, threads_to_control):
+        th.Thread.__init__(self)
+        self.threads_to_control = threads_to_control
 
     def run(self):
-        for thread in self.threads_to_stop:
+        for thread in self.threads_to_control:
             thread.stopped.set()
-        result = messagebox.showinfo("Остановка потоков", "Другие потоки остановлены. Нажмите ОК для возобновления.")
-        if result == "ok":
-            for thread in self.threads_to_stop:
-                thread.stopped.clear()
-                thread.run()
+        rand = random.randint(1, 6)
+        if rand == 1:
+            result = messagebox.showinfo("Поломка датчика влажности в первой теплице.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
+        elif rand == 2:
+            result = messagebox.showinfo("Поломка датчика влажности во второй теплице.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
+        elif rand == 3:
+            result = messagebox.showinfo("Поломка датчика температуры в первой теплице.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
+        elif rand == 4:
+            result = messagebox.showinfo("Поломка датчика температуры во второй теплице.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
+        elif rand == 5:
+            result = messagebox.showinfo("Поломка электромагнитного клапана зоны в первой теплице'.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
+        elif rand == 6:
+            result = messagebox.showinfo("Поломка электромагнитного клапана зоны во второй теплице.",
+                                         "Работа система остановлена. Нажмите ОК чтобы произвести починку. Потом заново запустите систему")
+            if result == "ok":
+                for thread in self.threads_to_control:
+                    thread.stopped.clear()
 
