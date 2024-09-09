@@ -3,7 +3,7 @@ from datetime import datetime
 from tkinter import *
 import tkinter as tk
 
-from future.moves.tkinter import ttk, messagebox
+from tkinter import ttk, messagebox
 
 import Objects
 import Proverka

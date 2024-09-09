@@ -2,7 +2,7 @@ import random
 import threading as th
 import time
 
-from future.moves.tkinter import messagebox
+from tkinter import messagebox
 
 
 # Функции для каждого возможного сценария
